@@ -15,16 +15,16 @@ onMounted(async () => {
   const app = new Application({
     width: appConfig.width,
     height: appConfig.height,
-    backgroundColor: 0x3ba8a1
+    // backgroundColor: 0x3ba8a1
   })
 
   const stage = new Container()
 
-  // const bgTexture = Texture.from('bg.jpg');
-  // const background = new Sprite(bgTexture);
-  // background.width =window.innerWidth - 20
-  // background.height =window.innerHeight - 20
-  // stage.addChild( background );
+  const bgTexture = Texture.from('sample.jpg');
+  const background = new Sprite(bgTexture);
+  background.width =window.innerWidth - 20
+  background.height =window.innerHeight
+  stage.addChild( background );
 
   const headerContainer = new Container()
   headerContainer.width = appConfig.width
@@ -92,7 +92,6 @@ onMounted(async () => {
   }
   headerContainer.addChild( menus )
 
-
   // main container
 
   const mainContainer = new Container
@@ -121,7 +120,7 @@ onMounted(async () => {
     fontWeight: 'bold',
     padding: 20,
     wordWrap: true,
-    wordWrapWidth: mainContainer.width / 3
+    wordWrapWidth: 500
   });
 
   const leftText = new Text(`Youre journey to better credit starts here`, leftStyle);
@@ -146,6 +145,60 @@ onMounted(async () => {
   const leftDescription = new Text(`Think the credit system is stacked against you? So do we, We'll help you get the credit you deserve.`, descStyle)
   leftDescription.y = leftText.height + 20
   mainLeftContainer.addChild(leftDescription)
+
+  const getApp = new Container()
+  getApp.y = leftDescription.y + (leftDescription.height * 3)
+  getApp.x = 100
+  mainContainer.addChild(getApp)
+
+  const appGraphics = new Graphics()
+  appGraphics.beginFill(0xffffff);
+  appGraphics.lineStyle(1, 0x000000)
+  appGraphics.drawRoundedRect (0, 0, 350, 50, 300);
+
+  getApp.addChild( appGraphics )
+  
+  const placeholder = new Text('Enter your mobile number', {
+    align: 'center',
+    fontSize: 16,
+  })
+  placeholder.x = 20
+  placeholder.y = (appGraphics.height - placeholder.height) / 2
+  getApp.addChild( placeholder )
+
+  const appGraphics1 = new Graphics()
+  appGraphics1.beginFill(0x000000);
+  appGraphics1.lineStyle(1, 0x000000)
+  appGraphics1.drawRoundedRect(0, 0, 100, 50, 300);
+  appGraphics1.x = appGraphics.width - appGraphics1.width
+  getApp.addChild( appGraphics1 )
+
+  const appGraphic2 = new Graphics()
+  appGraphic2.beginFill(0x000000);
+  appGraphic2.drawRect(0, 0, 40, 50);
+  appGraphic2.x = appGraphics1.x
+  getApp.addChild( appGraphic2 )
+
+  const buttonText = new Text('GET APP', {
+    align: 'center',
+    fontSize: 16,
+    fill: 0xffffff
+  })
+  buttonText.x = 260
+  buttonText.y =  (appGraphics.height - buttonText.height) /2
+  getApp.addChild( buttonText )
+
+  const mainRightContainer = new Container()
+  mainRightContainer.x = mainLeftContainer.width
+  mainRightContainer.y = 50
+  mainContainer.addChild(mainRightContainer)
+
+  
+  const rightTexture = Texture.from('girl.png');
+  const rightBackground = new Sprite(rightTexture);
+  rightBackground.width = 500
+  rightBackground.height = 600
+  mainRightContainer.addChild( rightBackground );
 
   app.stage.addChild(stage)
   body.appendChild(app.view)
